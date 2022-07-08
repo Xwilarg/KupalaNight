@@ -15,6 +15,8 @@ namespace UnityWithUkraine.Player
         private PlayerInfo _info;
 
         private Rigidbody2D _rb;
+        private Animator _anim;
+        private SpriteRenderer _sr;
 
         private readonly List<Tackable> _itemsInRange = new();
 
@@ -37,11 +39,22 @@ namespace UnityWithUkraine.Player
         {
             Instance = this;
             _rb = GetComponent<Rigidbody2D>();
+            _sr = GetComponent<SpriteRenderer>();
+            _anim = GetComponent<Animator>();
         }
 
         public void OnMovement(InputAction.CallbackContext value)
         {
             var x = value.ReadValue<Vector2>().x;
+            _anim.SetBool("IsWalking", x != 0f);
+            if (x > 0f)
+            {
+                _sr.flipX = false;
+            }
+            else if (x < 0f)
+            {
+                _sr.flipX = true;
+            }
             _rb.velocity = new Vector2(x * _info.PlayerSpeed, _rb.velocity.y);
         }
 
