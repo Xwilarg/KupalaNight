@@ -19,9 +19,6 @@ namespace UnityWithUkraine.Player
         [SerializeField]
         private LevelData[] _levelData;
 
-        [SerializeField]
-        private Transform _reference;
-
         private Rigidbody2D _rb;
         private Animator _anim;
         private SpriteRenderer _sr;
@@ -30,6 +27,8 @@ namespace UnityWithUkraine.Player
         private List<Takable> _interactibles;
 
         private int _currentLevel;
+
+        public (int Min, int Max) CameraMinMax => (CurrentData.Min, CurrentData.Max);
 
         private LevelData CurrentData => _levelData[_currentLevel];
 
@@ -70,9 +69,20 @@ namespace UnityWithUkraine.Player
             _anim = GetComponent<Animator>();
             _cam = Camera.main;
             _xObj = transform.position.x;
-            _yOffset = _reference.position.y - transform.position.y;
+            _yOffset = CurrentData.Reference.position.y - transform.position.y;
             _interactibles = FindObjectsOfType<Takable>().ToList();
             Translate.Instance.Init();
+        }
+
+        public void MoveToZone(int index)
+        {
+            _currentLevel = index;
+            _xObj = CurrentData.Reference.position.x;
+            transform.position = new Vector3(
+                x: CurrentData.Reference.position.x,
+                y: GetYOffset(transform.position.x) - _yOffset,
+                z: transform.position.z
+            );
         }
 
         private float GetYOffset(float x)
