@@ -9,9 +9,6 @@ namespace UnityWithUkraine.Player
         [SerializeField]
         private Transform _target;
 
-        [SerializeField]
-        private float _min, _max;
-
         private Vector3 _orPos;
 
         private void Awake()
@@ -23,7 +20,8 @@ namespace UnityWithUkraine.Player
         private void Update()
         {
             var p = _target.position - _offset;
-            transform.position = new Vector3(Mathf.Clamp(p.x, _min, _max), _orPos.y, _orPos.z);
+            (int min, int max) = PlayerController.Instance.CameraMinMax;
+            transform.position = new Vector3(Mathf.Clamp(p.x, min, max), _orPos.y, _orPos.z);
         }
     }
 }

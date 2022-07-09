@@ -7,5 +7,6 @@ namespace UnityWithUkraine.Player
     public class LevelData
     {
         public Transform[] PosInfo;
+        public int Min, Max;
     }
 }

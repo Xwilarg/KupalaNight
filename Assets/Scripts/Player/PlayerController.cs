@@ -31,6 +31,8 @@ namespace UnityWithUkraine.Player
 
         private int _currentLevel;
 
+        public (int Min, int Max) CameraMinMax => (CurrentData.Min, CurrentData.Max);
+
         private LevelData CurrentData => _levelData[_currentLevel];
 
         /// <summary>
