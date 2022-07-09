@@ -17,7 +17,7 @@ namespace UnityWithUkraine.Player
         private PlayerInfo _info;
 
         [SerializeField]
-        private Transform[] _posInfo;
+        private LevelData[] _levelData;
 
         [SerializeField]
         private Transform _reference;
@@ -28,6 +28,10 @@ namespace UnityWithUkraine.Player
         private Camera _cam;
 
         private List<Takable> _interactibles;
+
+        private int _currentLevel;
+
+        private LevelData CurrentData => _levelData[_currentLevel];
 
         /// <summary>
         /// Offset between the player pos and the tag
@@ -66,7 +70,6 @@ namespace UnityWithUkraine.Player
             _anim = GetComponent<Animator>();
             _cam = Camera.main;
             _xObj = transform.position.x;
-            _posInfo = _posInfo.OrderBy(x => x.position.x).ToArray();
             _yOffset = _reference.position.y - transform.position.y;
             _interactibles = FindObjectsOfType<Takable>().ToList();
             Translate.Instance.Init();
@@ -74,11 +77,11 @@ namespace UnityWithUkraine.Player
 
         private float GetYOffset(float x)
         {
-            var indexBefore = _posInfo.Count(p => p.position.x < x) - 1;
+            var indexBefore = CurrentData.PosInfo.Count(p => p.position.x < x) - 1;
             var indexAfter = indexBefore + 1;
-            var relativePos = x - _posInfo[indexBefore].position.x;
-            var distance = _posInfo[indexAfter].position.x - _posInfo[indexBefore].position.x;
-            return Mathf.Lerp(_posInfo[indexBefore].position.y, _posInfo[indexAfter].position.y, relativePos / distance);
+            var relativePos = x - CurrentData.PosInfo[indexBefore].position.x;
+            var distance = CurrentData.PosInfo[indexAfter].position.x - CurrentData.PosInfo[indexBefore].position.x;
+            return Mathf.Lerp(CurrentData.PosInfo[indexBefore].position.y, CurrentData.PosInfo[indexAfter].position.y, relativePos / distance);
         }
 
         private void FixedUpdate()
@@ -137,14 +140,13 @@ namespace UnityWithUkraine.Player
 
         private void OnDrawGizmos()
         {
-            if (_posInfo.Length < 2)
-            {
-                return;
-            }
             Gizmos.color = Color.blue;
-            for (int i = 0; i < _posInfo.Length - 1; i++)
+            foreach (var level in _levelData)
             {
-                Gizmos.DrawLine(_posInfo[i].position, _posInfo[i + 1].position);
+                for (int i = 0; i < level.PosInfo.Length - 1; i++)
+                {
+                    Gizmos.DrawLine(level.PosInfo[i].position, level.PosInfo[i + 1].position);
+                }
             }
         }
     }
