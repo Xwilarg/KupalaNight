@@ -95,18 +95,20 @@ namespace UnityWithUkraine.Player
             _anim = GetComponent<Animator>();
             _cam = Camera.main;
             _xObj = transform.position.x;
-            _yOffset = CurrentData.Reference.position.y - transform.position.y;
+            _yOffset = CurrentData.ReferenceLeft.position.y - transform.position.y;
             _interactibles = FindObjectsOfType<Takable>().ToList();
             Translate.Instance.Init();
         }
 
         public void MoveToZone(int index)
         {
+            var movingLeft = index < _currentLevel;
             _currentLevel = index;
-            _xObj = CurrentData.Reference.position.x;
+            var refTarget = movingLeft ? CurrentData.ReferenceRight.position.x : CurrentData.ReferenceLeft.position.x;
+            _xObj = refTarget;
             transform.position = new Vector3(
-                x: CurrentData.Reference.position.x,
-                y: GetYOffset(CurrentData.Reference.position.x) - _yOffset,
+                x: refTarget,
+                y: GetYOffset(refTarget) - _yOffset,
                 z: transform.position.z
             );
         }
