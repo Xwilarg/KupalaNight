@@ -4,9 +4,10 @@ namespace UnityWithUkraine.Item
 {
     public class Takable : MonoBehaviour
     {
-        [SerializeField]
-        private ItemType _item;
+        public bool DeleteOnInteraction;
 
-        public ItemType Item => _item;
+        public ItemType Item;
+
+        public string VNToken;
     }
 }

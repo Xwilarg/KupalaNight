@@ -22,6 +22,8 @@ namespace UnityWithUkraine.Translation
             }
         }
 
+        public void Init() { }
+
         private static Translate _instance;
         public static Translate Instance
         {
@@ -33,7 +35,7 @@ namespace UnityWithUkraine.Translation
             }
         }
 
-        public bool Exists(string key) => _translationData.ContainsKey(key);
+        public bool Exists(string key) => _translationData["english"].ContainsKey(key);
 
         public string Tr(string key, params string[] arguments)
         {
