@@ -59,6 +59,14 @@ namespace UnityWithUkraine.Player
             {
                 _inventory.Add(item, 1);
             }
+            if (item == ItemType.Flower)
+            {
+                _anim.SetInteger("FlowerCount", _inventory[item]);
+            }
+            else if (item == ItemType.TorchOn)
+            {
+                _anim.SetBool("HasTorchOn", true);
+            }
         }
 
         public void RemoveFromInventory(ItemType item)
