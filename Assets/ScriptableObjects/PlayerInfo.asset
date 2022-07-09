@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
   PlayerSpeed: 5
+  DistanceBeforeStop: 1

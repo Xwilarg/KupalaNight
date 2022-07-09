@@ -232,7 +232,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _storyText: {fileID: 1975154719}
   _storyContainer: {fileID: 592779466}
-  _pressToTake: {fileID: 1756045595}
 --- !u!4 &811504277
 Transform:
   m_ObjectHideFlags: 0
@@ -946,6 +945,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9094059004949885047, guid: 4aa60a05ee291dd4896864956adf7987, type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9094059006786250946, guid: 4aa60a05ee291dd4896864956adf7987, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9094059006786250956, guid: 4aa60a05ee291dd4896864956adf7987, type: 3}
       propertyPath: m_Name
       value: Player

@@ -18,14 +18,6 @@ namespace UnityWithUkraine.Item
             Instance = this;
         }
 
-        [SerializeField]
-        private GameObject _pressToTake;
-
-        public void TogglePressToTake(bool value)
-        {
-            _pressToTake.SetActive(value);
-        }
-
         public void DisplayText(string text)
         {
             _storyContainer.SetActive(true);

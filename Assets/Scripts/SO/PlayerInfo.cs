@@ -6,5 +6,6 @@ namespace UnityWithUkraine.SO
     public class PlayerInfo : ScriptableObject
     {
         public float PlayerSpeed;
+        public float DistanceBeforeStop;
     }
 }

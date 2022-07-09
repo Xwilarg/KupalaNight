@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityWithUkraine.Item;
@@ -18,25 +17,11 @@ namespace UnityWithUkraine.Player
         private Rigidbody2D _rb;
         private Animator _anim;
         private SpriteRenderer _sr;
-
-        private readonly List<Tackable> _itemsInRange = new();
+        private Camera _cam;
 
         private readonly Dictionary<ItemType, int> _inventory = new();
 
-        public void AddItemInRange(Tackable item)
-        {
-            _itemsInRange.Add(item);
-            UIManager.Instance.TogglePressToTake(true);
-        }
-
-        public void RemoveItemInRange(Tackable item)
-        {
-            _itemsInRange.Remove(item);
-            if (!_itemsInRange.Any())
-            {
-                UIManager.Instance.TogglePressToTake(false);
-            }
-        }
+        private float _xObj;
 
         private void AddToInventory(ItemType item)
         {
@@ -56,25 +41,24 @@ namespace UnityWithUkraine.Player
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
+            _cam = Camera.main;
+            _xObj = transform.position.x;
         }
 
-        public void OnMovement(InputAction.CallbackContext value)
+        private void FixedUpdate()
         {
-            if (StoryManager.Instance.IsDisplayingStory)
+            if (Mathf.Abs(transform.position.x - _xObj) < _info.DistanceBeforeStop)
             {
-                return;
+                _rb.velocity = Vector3.zero;
+                _anim.SetBool("IsWalking", false);
             }
-            var x = value.ReadValue<Vector2>().x;
-            _anim.SetBool("IsWalking", x != 0f);
-            if (x > 0f)
+            else
             {
-                _sr.flipX = false;
+                var goRight = transform.position.x < _xObj;
+                _rb.velocity = (goRight ? 1f : -1f) * _info.PlayerSpeed * Vector2.right;
+                _anim.SetBool("IsWalking", true);
+                _sr.flipX = !goRight;
             }
-            else if (x < 0f)
-            {
-                _sr.flipX = true;
-            }
-            _rb.velocity = new Vector2(x * _info.PlayerSpeed, _rb.velocity.y);
         }
 
         public void OnAction(InputAction.CallbackContext value)
@@ -85,12 +69,9 @@ namespace UnityWithUkraine.Player
                 {
                     StoryManager.Instance.Next();
                 }
-                else if (_itemsInRange.Any())
+                else
                 {
-                    AddToInventory(_itemsInRange[0].Item);
-                    var go = _itemsInRange[0].gameObject;
-                    RemoveItemInRange(_itemsInRange[0]);
-                    Destroy(go);
+                    _xObj = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x;
                 }
             }
         }
