@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityWithUkraine.Item;
 using UnityWithUkraine.SO;
 using UnityWithUkraine.Story;
+using UnityWithUkraine.Translation;
 
 namespace UnityWithUkraine.Player
 {
@@ -68,6 +69,7 @@ namespace UnityWithUkraine.Player
             _posInfo = _posInfo.OrderBy(x => x.position.x).ToArray();
             _yOffset = _reference.position.y - transform.position.y;
             _interactibles = FindObjectsOfType<Takable>().ToList();
+            Translate.Instance.Init();
         }
 
         private float GetYOffset(float x)
@@ -85,9 +87,19 @@ namespace UnityWithUkraine.Player
             {
                 if (_target != null)
                 {
-                    AddToInventory(_target.Item);
-                    _interactibles.Remove(_target);
-                    Destroy(_target.gameObject);
+                    if (_target.Item != ItemType.None)
+                    {
+                        AddToInventory(_target.Item);
+                    }
+                    if (!string.IsNullOrWhiteSpace(_target.VNToken))
+                    {
+                        StoryManager.Instance.ReadText(_target.VNToken);
+                    }
+                    if (_target.DeleteOnInteraction)
+                    {
+                        _interactibles.Remove(_target);
+                        Destroy(_target.gameObject);
+                    }
                     _target = null;
                 }
                 _rb.velocity = Vector3.zero;
