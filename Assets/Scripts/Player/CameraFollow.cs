@@ -12,18 +12,18 @@ namespace UnityWithUkraine.Player
         [SerializeField]
         private float _min, _max;
 
-        private float _orrY;
+        private Vector3 _orPos;
 
         private void Awake()
         {
             _offset = _target.position - transform.position;
-            _orrY = transform.position.y;
+            _orPos = transform.position;
         }
 
         private void Update()
         {
             var p = _target.position - _offset;
-            transform.position = new Vector3(Mathf.Clamp(p.x, _min, _max), _orrY, 0f);
+            transform.position = new Vector3(Mathf.Clamp(p.x, _min, _max), _orPos.y, _orPos.z);
         }
     }
 }
