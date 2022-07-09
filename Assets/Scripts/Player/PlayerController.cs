@@ -49,7 +49,7 @@ namespace UnityWithUkraine.Player
         /// </summary>
         private float _xObj;
 
-        private void AddToInventory(ItemType item)
+        public void AddToInventory(ItemType item)
         {
             if (_inventory.ContainsKey(item))
             {
@@ -59,7 +59,33 @@ namespace UnityWithUkraine.Player
             {
                 _inventory.Add(item, 1);
             }
+            if (item == ItemType.Flower)
+            {
+                _anim.SetInteger("FlowerCount", _inventory[item]);
+            }
+            else if (item == ItemType.TorchOn)
+            {
+                _anim.SetBool("HasTorchOn", true);
+            }
         }
+
+        public void RemoveFromInventory(ItemType item)
+        {
+            if (_inventory.ContainsKey(item))
+            {
+                if (_inventory[item] > 1)
+                {
+                    _inventory[item]--;
+                }
+                else
+                {
+                    _inventory.Remove(item);
+                }
+            }
+        }
+
+        public bool Contains(ItemType item)
+            => _inventory.ContainsKey(item);
 
         private void Awake()
         {
@@ -98,20 +124,31 @@ namespace UnityWithUkraine.Player
         {
             if (Mathf.Abs(transform.position.x - _xObj) < _info.DistanceBeforeStop)
             {
-                if (_target != null)
+                if (_target != null && (_target.Requirement == ItemType.None || Contains(_target.Requirement)))
                 {
-                    if (_target.Item != ItemType.None)
+                    if (_target.IsBondfire)
                     {
-                        AddToInventory(_target.Item);
+                        _target.GetComponent<Bondfire>().Interact();
                     }
-                    if (!string.IsNullOrWhiteSpace(_target.VNToken))
+                    else
                     {
-                        StoryManager.Instance.ReadText(_target.VNToken);
-                    }
-                    if (_target.DeleteOnInteraction)
-                    {
-                        _interactibles.Remove(_target);
-                        Destroy(_target.gameObject);
+                        if (_target.Requirement != ItemType.None)
+                        {
+                            RemoveFromInventory(_target.Requirement);
+                        }
+                        if (_target.Item != ItemType.None)
+                        {
+                            AddToInventory(_target.Item);
+                        }
+                        if (!string.IsNullOrWhiteSpace(_target.VNToken))
+                        {
+                            StoryManager.Instance.ReadText(_target.VNToken);
+                        }
+                        if (_target.DeleteOnInteraction)
+                        {
+                            _interactibles.Remove(_target);
+                            Destroy(_target.gameObject);
+                        }
                     }
                     _target = null;
                 }
