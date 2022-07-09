@@ -2,7 +2,7 @@
 
 namespace UnityWithUkraine.Item
 {
-    public class Tackable : MonoBehaviour
+    public class Takable : MonoBehaviour
     {
         [SerializeField]
         private ItemType _item;

@@ -7,5 +7,6 @@ namespace UnityWithUkraine.SO
     {
         public float PlayerSpeed;
         public float DistanceBeforeStop;
+        public float DistanceClickForInterract;
     }
 }

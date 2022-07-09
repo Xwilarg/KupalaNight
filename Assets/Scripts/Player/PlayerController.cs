@@ -26,10 +26,17 @@ namespace UnityWithUkraine.Player
         private SpriteRenderer _sr;
         private Camera _cam;
 
+        private List<Takable> _interactibles;
+
         /// <summary>
         /// Offset between the player pos and the tag
         /// </summary>
         private float _yOffset;
+
+        /// <summary>
+        /// Object we clicked to interact with
+        /// </summary>
+        private Takable _target;
 
         private readonly Dictionary<ItemType, int> _inventory = new();
 
@@ -60,6 +67,7 @@ namespace UnityWithUkraine.Player
             _xObj = transform.position.x;
             _posInfo = _posInfo.OrderBy(x => x.position.x).ToArray();
             _yOffset = _reference.position.y - transform.position.y;
+            _interactibles = FindObjectsOfType<Takable>().ToList();
         }
 
         private float GetYOffset(float x)
@@ -75,6 +83,13 @@ namespace UnityWithUkraine.Player
         {
             if (Mathf.Abs(transform.position.x - _xObj) < _info.DistanceBeforeStop)
             {
+                if (_target != null)
+                {
+                    AddToInventory(_target.Item);
+                    _interactibles.Remove(_target);
+                    Destroy(_target.gameObject);
+                    _target = null;
+                }
                 _rb.velocity = Vector3.zero;
                 _anim.SetBool("IsWalking", false);
             }
@@ -103,6 +118,7 @@ namespace UnityWithUkraine.Player
                 else
                 {
                     _xObj = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x;
+                    _target = _interactibles.FirstOrDefault(x => Mathf.Abs(x.transform.position.x - _xObj) < _info.DistanceClickForInterract);
                 }
             }
         }
