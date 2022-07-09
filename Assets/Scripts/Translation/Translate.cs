@@ -33,6 +33,8 @@ namespace UnityWithUkraine.Translation
             }
         }
 
+        public bool Exists(string key) => _translationData.ContainsKey(key);
+
         public string Tr(string key, params string[] arguments)
         {
             var langData = _translationData[_currentLanguage];
