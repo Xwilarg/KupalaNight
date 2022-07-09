@@ -1031,6 +1031,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 61fb3d0a-a040-4543-8f23-b3821f82330e
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1801511113}
+        m_TargetAssemblyTypeName: UnityWithUkraine.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnVNNext
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9ffbf62f-487b-4a66-a149-ff71195a4823
+    m_ActionName: Player/VN_Next[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

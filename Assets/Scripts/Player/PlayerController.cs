@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityWithUkraine.Item;
 using UnityWithUkraine.SO;
+using UnityWithUkraine.Story;
 
 namespace UnityWithUkraine.Player
 {
@@ -20,18 +21,32 @@ namespace UnityWithUkraine.Player
 
         private readonly List<Tackable> _itemsInRange = new();
 
-        public void AddItem(Tackable item)
+        private readonly Dictionary<ItemType, int> _inventory = new();
+
+        public void AddItemInRange(Tackable item)
         {
             _itemsInRange.Add(item);
             UIManager.Instance.TogglePressToTake(true);
         }
 
-        public void RemoveItem(Tackable item)
+        public void RemoveItemInRange(Tackable item)
         {
             _itemsInRange.Remove(item);
             if (!_itemsInRange.Any())
             {
                 UIManager.Instance.TogglePressToTake(false);
+            }
+        }
+
+        private void AddToInventory(ItemType item)
+        {
+            if (_inventory.ContainsKey(item))
+            {
+                _inventory[item]++;
+            }
+            else
+            {
+                _inventory.Add(item, 1);
             }
         }
 
@@ -45,6 +60,10 @@ namespace UnityWithUkraine.Player
 
         public void OnMovement(InputAction.CallbackContext value)
         {
+            if (StoryManager.Instance.IsDisplayingStory)
+            {
+                return;
+            }
             var x = value.ReadValue<Vector2>().x;
             _anim.SetBool("IsWalking", x != 0f);
             if (x > 0f)
@@ -60,12 +79,19 @@ namespace UnityWithUkraine.Player
 
         public void OnAction(InputAction.CallbackContext value)
         {
-            if (value.performed && _itemsInRange.Any())
+            if (value.performed)
             {
-                // TODO: Add in inventory
-                var go = _itemsInRange[0].gameObject;
-                RemoveItem(_itemsInRange[0]);
-                Destroy(go);
+                if (StoryManager.Instance.IsDisplayingStory)
+                {
+                    StoryManager.Instance.Next();
+                }
+                else if (_itemsInRange.Any())
+                {
+                    AddToInventory(_itemsInRange[0].Item);
+                    var go = _itemsInRange[0].gameObject;
+                    RemoveItemInRange(_itemsInRange[0]);
+                    Destroy(go);
+                }
             }
         }
     }

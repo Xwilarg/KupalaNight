@@ -8,11 +8,13 @@ namespace UnityWithUkraine.Item
         [SerializeField]
         private ItemType _item;
 
+        public ItemType Item => _item;
+
         public void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player"))
             {
-                PlayerController.Instance.AddItem(this);
+                PlayerController.Instance.AddItemInRange(this);
             }
         }
 
@@ -20,7 +22,7 @@ namespace UnityWithUkraine.Item
         {
             if (collision.CompareTag("Player"))
             {
-                PlayerController.Instance.RemoveItem(this);
+                PlayerController.Instance.RemoveItemInRange(this);
             }
         }
     }
