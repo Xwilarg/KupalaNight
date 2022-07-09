@@ -7,7 +7,10 @@ namespace UnityWithUkraine.Item
         public bool DeleteOnInteraction;
 
         public ItemType Item;
+        public ItemType Requirement;
 
         public string VNToken;
+
+        public bool IsBondfire;
     }
 }

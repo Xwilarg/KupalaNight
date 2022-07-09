@@ -3,6 +3,9 @@
     public enum ItemType
     {
         None,
-        Flower
+        Flower,
+        TorchOff,
+        TorchOn,
+        FlowerLightupFire
     }
 }
