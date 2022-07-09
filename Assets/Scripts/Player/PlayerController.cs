@@ -80,7 +80,7 @@ namespace UnityWithUkraine.Player
             _xObj = CurrentData.Reference.position.x;
             transform.position = new Vector3(
                 x: CurrentData.Reference.position.x,
-                y: GetYOffset(transform.position.x) - _yOffset,
+                y: GetYOffset(CurrentData.Reference.position.x) - _yOffset,
                 z: transform.position.z
             );
         }
