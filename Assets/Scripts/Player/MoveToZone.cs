@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityWithUkraine.Story;
 
 namespace UnityWithUkraine.Player
 {
@@ -7,9 +8,20 @@ namespace UnityWithUkraine.Player
         [SerializeField]
         private int _newZone;
 
+        [SerializeField]
+        private bool _requireTorch;
+
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            PlayerController.Instance.MoveToZone(_newZone);
+            if (_requireTorch && !PlayerController.Instance.Contains(Item.ItemType.TorchOn))
+            {
+                PlayerController.Instance.Stop();
+                StoryManager.Instance.ReadText("level2_mcblock");
+            }
+            else
+            {
+                PlayerController.Instance.MoveToZone(_newZone);
+            }
         }
     }
 }

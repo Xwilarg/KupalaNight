@@ -49,6 +49,16 @@ namespace UnityWithUkraine.Player
         /// </summary>
         private float _xObj;
 
+        public void Stop()
+        {
+            _xObj = transform.position.x;
+        }
+
+        public void GoLeft()
+        {
+            _xObj -= 2f;
+        }
+
         public void AddToInventory(ItemType item)
         {
             if (_inventory.ContainsKey(item))
@@ -97,7 +107,6 @@ namespace UnityWithUkraine.Player
             _xObj = transform.position.x;
             _yOffset = CurrentData.ReferenceLeft.position.y - transform.position.y;
             _interactibles = FindObjectsOfType<Takable>().ToList();
-            Translate.Instance.Init();
         }
 
         public void MoveToZone(int index)
