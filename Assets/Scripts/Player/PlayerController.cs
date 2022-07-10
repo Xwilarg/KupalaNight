@@ -122,6 +122,9 @@ namespace UnityWithUkraine.Player
             );
         }
 
+        private bool IsInBounds(float x)
+            => x > CurrentData.PosInfo[0].position.x && x < CurrentData.PosInfo.Last().position.x;
+
         private float GetYOffset(float x)
         {
             var indexBefore = CurrentData.PosInfo.Count(p => p.position.x < x) - 1;
@@ -190,8 +193,13 @@ namespace UnityWithUkraine.Player
                 }
                 else
                 {
-                    _xObj = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x;
-                    _target = _interactibles.FirstOrDefault(x => Mathf.Abs(x.transform.position.x - _xObj) < _info.DistanceClickForInterract);
+
+                    var x = _cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x;
+                    if (IsInBounds(x))
+                    {
+                        _xObj = x;
+                        _target = _interactibles.FirstOrDefault(x => Mathf.Abs(x.transform.position.x - _xObj) < _info.DistanceClickForInterract);
+                    }
                 }
             }
         }
