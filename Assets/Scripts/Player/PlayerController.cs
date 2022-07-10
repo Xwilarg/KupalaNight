@@ -49,6 +49,16 @@ namespace UnityWithUkraine.Player
         /// </summary>
         private float _xObj;
 
+        public void Stop()
+        {
+            _xObj = transform.position.x;
+        }
+
+        public void GoLeft()
+        {
+            _xObj -= 2f;
+        }
+
         public void AddToInventory(ItemType item)
         {
             if (_inventory.ContainsKey(item))

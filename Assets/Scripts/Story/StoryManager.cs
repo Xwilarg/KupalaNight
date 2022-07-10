@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityWithUkraine.Item;
+using UnityWithUkraine.Player;
 using UnityWithUkraine.Translation;
 
 namespace UnityWithUkraine.Story
@@ -36,6 +37,10 @@ namespace UnityWithUkraine.Story
             }
             else
             {
+                if (_currentKey == "level2_mcblock")
+                {
+                    PlayerController.Instance.GoLeft();
+                }
                 IsDisplayingStory = false;
                 UIManager.Instance.HideStoryContainer();
             }
