@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NeutralEnding.unity
     guid: e08b99d7d4a63a34d8444254486e1900
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 19e1129c829cc0d45bef089cffec5722
   m_configObjects: {}

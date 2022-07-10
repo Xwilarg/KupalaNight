@@ -12,7 +12,7 @@ namespace UnityWithUkraine.Menu
 
         public void Play()
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Intro");
         }
 
         private void Start()
