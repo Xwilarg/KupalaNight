@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -8,10 +9,13 @@ namespace UnityWithUkraine.Menu
     {
         private void Awake()
         {
-            GetComponent<VideoPlayer>().loopPointReached += (e) =>
+            var video = GetComponent<VideoPlayer>();
+            video.url = Path.Combine(Application.streamingAssetsPath, "intro.mp4");
+            video.loopPointReached += (e) =>
             {
                 SceneManager.LoadScene("Main");
             };
+            video.Play();
         }
     }
 }
