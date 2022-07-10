@@ -6,6 +6,7 @@
         Flower,
         TorchOff,
         TorchOn,
-        FlowerLightupFire
+        FlowerLightupFire,
+        Scarf
     }
 }
