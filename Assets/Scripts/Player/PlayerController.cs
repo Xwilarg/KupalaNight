@@ -97,6 +97,9 @@ namespace UnityWithUkraine.Player
         public bool Contains(ItemType item)
             => _inventory.ContainsKey(item);
 
+        public int Count(ItemType item)
+            => Contains(item) ? _inventory[item] : 0;
+
         private void Awake()
         {
             Instance = this;
