@@ -1,4 +1,6 @@
-﻿namespace UnityWithUkraine.Menu
+﻿using UnityEngine;
+
+namespace UnityWithUkraine.Menu
 {
     public class MainMenu : MonoBehaviour
     {
