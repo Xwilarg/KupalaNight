@@ -1,4 +1,9 @@
 {
+    "play": "Graj",
+    "credits": "Napisy",
+    "language": "Język",
+
+    "currentLanguage": "Polski",
 
     "level1_letter0": "Każdego roku, ceremonia Nocy Kupały kończy się składaniem własnoręcznie robionych przez młode kobiety, kwiacianych wieńców na tafli naszego jeziora.", 
     "level1_letter1": "Jeśli jej kochanek zdoła wyłowić wianek z wody, pisane jest im szczęśliwe, i długotrwałe małżeństwo, natomiast jeśli wianek będzie niewystarczająco mocny i zatonie, kobieta pozostanie zawsze samotna.",
