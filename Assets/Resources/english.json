@@ -1,5 +1,11 @@
 {
 
+    "play": "Play",
+    "credits": "Credits",
+    "language": "Language",
+
+    "currentLanguage": "English",
+
     "level1_letter0": "Every year, the ceremony of the Kupala Night ends with young women laying their handmade flower crowns on the surface of our lake.",
     "level1_letter1": "If your lover manages to fish out ones flower crown, they will have a happy and prosperous marriage, but if ones flower crown drowns in the water, they will forever be alone.",
     "level1_kids0": "We need protection from the Ivan Kupala pains, with that will help us, the sacred ceremonial flames",

@@ -1,1 +1,14 @@
-{}
+{
+    "play": "Jouer",
+    "credits": "Crédits",
+    "language": "Langue",
+
+    "currentLanguage": "Français",
+
+    "level1_letter0": "Chaque années, la cérémonie de la nuit de Kupala se finit par des jeunes femmes posant leur couronnes de fleur fait main sur la surface de notre lac.",
+    "level1_letter1": "Si votre soupirant réussit à pécher une des couronnes de fleur, vous aurez un marriage riche et prospère, mais si l'une des couronnes coule dans l'eau, vous serrez à jamais seul.",
+    "level1_kids0": "Nous avons besoin de nous protéger des douleurs de la cérémonie d'Ivan Kupala, la flame cérémoniale sacrée nous aidera",
+    "level2_grandma0": "Mavka? Ah oui, je la connais… Elle était une enfant si douce, innocante, mais ses parents ont refusés de la baptisé et elle est devenue un esprit, piégé dans ce monde.",
+    "level2_grandma1": "Il y a un moyen de libérer son âme, en utilisant une écharpe spécial qu'elle à eut le jour où elle est née et en lui donnant le bapteme qu'elle n'a jamais eut. Cependant je dois te prévenir, personne n'a encore réussit. Bonne chance dans ta recherche, mon enfant…",
+    "level2_mcblock0": "Il fait trop sombre..."
+}
