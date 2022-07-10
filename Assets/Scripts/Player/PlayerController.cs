@@ -97,7 +97,6 @@ namespace UnityWithUkraine.Player
             _xObj = transform.position.x;
             _yOffset = CurrentData.ReferenceLeft.position.y - transform.position.y;
             _interactibles = FindObjectsOfType<Takable>().ToList();
-            Translate.Instance.Init();
         }
 
         public void MoveToZone(int index)
